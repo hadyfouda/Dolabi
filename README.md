@@ -14,7 +14,9 @@ npm run preview    # serve dist/ (service worker active)
 npm run icons      # regenerate PNG icons in public/ (uses sharp)
 ```
 
-Deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, Firebase). **HTTPS is required** for install + service worker. Configure an SPA fallback to `index.html`.
+**Live (GitHub Pages):** https://hadyfouda.github.io/Dolabi/ — every push to `main` rebuilds and redeploys via `.github/workflows/deploy.yml` (repo Settings → Pages → Source: **GitHub Actions**).
+
+Other static hosts (Netlify, Vercel, Cloudflare Pages) work too: build with `npm run build` and serve `dist/`. For a sub-folder deploy set `BASE_PATH=/folder/` at build time. **HTTPS is required** for install + service worker.
 
 ## Structure
 

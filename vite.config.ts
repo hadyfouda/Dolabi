@@ -22,7 +22,11 @@ function dropUnusedOrtAssets(): Plugin {
 }
 
 // https://vite.dev/config/
+// Deploy base: "/" for a root domain, "/Dolabi/" for GitHub Pages (set by the deploy workflow).
+const base = process.env.BASE_PATH ?? '/';
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     tailwindcss(),
@@ -32,7 +36,7 @@ export default defineConfig({
       injectRegister: false, // registered manually in src/main.tsx via virtual:pwa-register
       includeAssets: ['favicon.ico', 'favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        id: '/',
+        id: base,
         name: 'دولابي - منسّق ملابسك الذكي',
         short_name: 'دولابي',
         description: 'صوّر هدومك، والتطبيق يفرّغها وينسّق لك أطقم لايقة — حتى من غير نت.',
@@ -42,8 +46,8 @@ export default defineConfig({
         orientation: 'portrait',
         theme_color: '#FFFFFF',
         background_color: '#F8F8FA',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         categories: ['lifestyle', 'shopping', 'utilities'],
         icons: [
           { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
@@ -57,7 +61,7 @@ export default defineConfig({
         // ONNX/WASM runtimes are huge; they are fetched lazily and runtime-cached instead.
         globIgnores: ['**/*.wasm', '**/ort*.mjs'],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
-        navigateFallback: '/index.html',
+        navigateFallback: `${base}index.html`,
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
@@ -88,7 +92,7 @@ export default defineConfig({
           },
           {
             // optional self-hosted model (VITE_IMGLY_PUBLIC_PATH=/imgly/)
-            urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith('/imgly/'),
+            urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith(`${base}imgly/`),
             handler: 'CacheFirst',
             options: {
               cacheName: 'imgly-self-hosted',

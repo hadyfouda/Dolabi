@@ -50,7 +50,7 @@ export function InstallPwaBanner() {
         </button>
 
         <div className="flex items-center gap-3 pe-10">
-          <img src="/pwa-192x192.png" alt="" className="size-12 rounded-2xl" />
+          <img src={`${import.meta.env.BASE_URL}pwa-192x192.png`} alt="" className="size-12 rounded-2xl" />
           <div>
             <div className="font-extrabold">ثبّت دولابي كتطبيق على موبايلك</div>
             <div className="text-xs text-white/70">يفتح على طول، ويشتغل من غير نت</div>
